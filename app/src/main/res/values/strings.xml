@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Covid19</string>
+
+    <string name="ok">OK</string>
+    <string name="unexpected_error_message">Unexpected Error</string>
+    <string name="error">Error</string>
+    <string name="loading_string">Đang xử lý...</string>
+    <string name="login_hint">Nhập mã</string>
+    <string name="login_text">Đăng nhập</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+</resources>
