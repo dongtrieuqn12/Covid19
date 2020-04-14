@@ -17,11 +17,13 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.Objects;
 
 import vn.cns.covid19.R;
+import vn.cns.covid19.Utils.ByteUtils;
 import vn.cns.covid19.Utils.Const;
 
 public abstract class BaseActivity extends AppCompatActivity implements NfcAdapter.ReaderCallback {
 
     private AlertDialog dialog;
+    public String customerCode;
 
     @Override
     protected void onResume() {
@@ -71,6 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NfcAdapt
     public void onTagDiscovered(Tag tag) {
         for(String tech : tag.getTechList()) {
             if(tech.equals(IsoDep.class.getName())){
+                customerCode = Objects.requireNonNull(ByteUtils.byteArray2HexString(tag.getId())).toUpperCase();
                 functionProcess(tag);
                 break;
             }
@@ -119,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NfcAdapt
 
             fragmentTransaction.commit();
         } catch (Exception ex) {
-            Log.d(Const.TAG, ex.getMessage());
+            Log.d(Const.TAG, Objects.requireNonNull(ex.getMessage()));
         }
 
         mCurrentFragmentTag = tag;
@@ -150,5 +153,19 @@ public abstract class BaseActivity extends AppCompatActivity implements NfcAdapt
 
     public String getCurrentFragmentTag() {
         return mCurrentFragmentTag;
+    }
+
+    @Override
+    public void onBackPressed() {
+        fragmentManager.popBackStackImmediate();
+
+        int backStackEntryCount = fragmentManager.getBackStackEntryCount();
+        if (backStackEntryCount < 1) {
+            super.onBackPressed();
+        } else {
+            mCurrentFragmentTag = fragmentManager
+                    .getBackStackEntryAt(backStackEntryCount - 1)
+                    .getName();
+        }
     }
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="orderData"
+            type="vn.cns.covid19.model.orders.OrderData" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/order_cell_height">
+
+        <TextView
+            android:id="@+id/text_view_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="@{orderData.statusValue}"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/order_cell_height"
+            android:layout_toStartOf="@id/text_view_status"
+            android:padding="@dimen/list_view_orders_spacing">
+
+            <LinearLayout
+                style="@style/list_view_orders_item_text_view"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/list_view_orders_spacing"
+                    android:text="@string/text_view_order_label"
+                    android:textColor="@color/text_view_order_text_color"
+                    android:textSize="@dimen/order_name_text_size" />
+
+                <TextView
+                    android:id="@+id/text_view_order_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{orderData.code}"
+                    android:textColor="@color/text_view_order_number_text_color"
+                    android:textSize="@dimen/order_number_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/list_view_orders_item_text_view"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/list_view_orders_spacing"
+                    android:text="@string/text_view_name_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/order_name_text_size" />
+
+                <TextView
+                    android:id="@+id/text_view_channel_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{orderData.customerName}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/order_number_text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

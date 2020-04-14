@@ -9,7 +9,6 @@ public interface Const {
 
     String CMS_TKN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlldTAxIiwidGVuYW50SWQiOiIzIiwiZXhwIjoxNjE4MzIwOTAxfQ.WhVTNWuy_ZwMZ11lB_L5jHMn-ADZcRBGM-8qokMFzj-Yr3HB6UjSmmVZMCAlY2dCq6DtZsejqV_brFthMAGztw";
 
-    String CLIENT_ID = "";
-    String CLIENT_SECRET = "";
-    String RETAILER = "";
+    String AUTHORIZATION = "Authorization";
+    String RETAILER = "Retailer";
 }

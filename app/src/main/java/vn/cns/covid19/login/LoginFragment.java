@@ -47,7 +47,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        fragmentLoginBinding = DataBindingUtil.inflate(LayoutInflater.from(Objects.requireNonNull(container).getContext()), R.layout.fragment_login,container,false);
         fragmentLoginBinding = FragmentLoginBinding.inflate(inflater,container,false);
         LoginCLickHandler mClickHandler = new LoginCLickHandler();
         fragmentLoginBinding.setClickHandler(mClickHandler);

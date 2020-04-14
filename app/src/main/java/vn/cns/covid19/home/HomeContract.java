@@ -8,6 +8,6 @@ public interface HomeContract {
     }
 
     interface ViewModel extends Lifecycle.ViewModel {
-        void getOrder (String customerCode);
+
     }
 }

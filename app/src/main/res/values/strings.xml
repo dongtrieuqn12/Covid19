@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Covid19</string>
 
+    <string name="vinaId">Vina ID</string>
+
     <string name="ok">OK</string>
     <string name="unexpected_error_message">Unexpected Error</string>
     <string name="error">Error</string>
@@ -10,6 +12,18 @@
 
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_email">This samId is invalid</string>
+
+    <string name="text_view_order_label">Đơn hàng:</string>
+
+    <string name="text_view_order_number_place_holder">ĐHxxxxx</string>
+
+    <string name="text_view_name_label">Khách hàng:</string>
+
+    <string name="text_view_name_number_place_holder">Nguyễn Văn A</string>
+
+    <string name="text_view_order_status_label_1">Chưa giao</string>
+
+    <string name="text_view_order_status_label_3">Đã giao</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>
