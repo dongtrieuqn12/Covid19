@@ -3,6 +3,7 @@ package vn.cns.covid19.login;
 import vn.cns.covid19.base.Constants;
 import vn.cns.covid19.base.Lifecycle;
 import vn.cns.covid19.base.NetworkViewModel;
+import vn.cns.covid19.model.config.ConfigResponse;
 
 public class LoginViewModel extends NetworkViewModel implements LoginContract.ViewModel {
 
@@ -40,17 +41,26 @@ public class LoginViewModel extends NetworkViewModel implements LoginContract.Vi
 
     @Override
     public void login(String samId) {
+        viewCallback.showLoadingDialog();
         loginRepository.login(samId).subscribe(new LoginObserver());
+    }
+
+    @Override
+    public void getToken(ConfigResponse configResponse) {
+        viewCallback.showLoadingDialog();
+        loginRepository.getToken(configResponse).subscribe(new LoginObserver());
     }
 
     private void onLoginCompleted() {
         if (viewCallback != null) {
             viewCallback.launchHomeFragment();
+            viewCallback.dismissLoadingDialog();
         }
     }
 
     private void onLoginError(Throwable e) {
-
+        viewCallback.onFailedLogin(e.getMessage());
+        viewCallback.dismissLoadingDialog();
     }
 
     private class LoginObserver extends MaybeNetworkObserver<Object> {

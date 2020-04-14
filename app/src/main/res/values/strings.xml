@@ -8,5 +8,8 @@
     <string name="login_hint">Nhập mã</string>
     <string name="login_text">Đăng nhập</string>
 
+    <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_email">This samId is invalid</string>
+
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

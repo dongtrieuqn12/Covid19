@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import vn.cns.covid19.Utils.Const;
 import vn.cns.covid19.Utils.PreferencesUtils;
 import vn.cns.covid19.exception.LoginFailureException;
+import vn.cns.covid19.model.config.ConfigResponse;
 
 public class RequestTokenAPIService {
     private IDataTokenAPI dataTokenAPI;
@@ -24,10 +25,10 @@ public class RequestTokenAPIService {
         return isRequestToken;
     }
 
-    public Maybe<TokenResponse> login() {
+    public Maybe<TokenResponse> login(ConfigResponse configResponse) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("client_id", Const.CLIENT_ID);
-        headers.put("client_secret",Const.CLIENT_SECRET);
+        headers.put("client_id", configResponse.getKiotConfig().getClientId());
+        headers.put("client_secret",configResponse.getKiotConfig().getClientSecret());
         headers.put("grant_type","client_credentials");
         headers.put("scopes","PublicApi.Access");
 
