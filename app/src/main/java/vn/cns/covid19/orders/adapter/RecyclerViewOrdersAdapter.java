@@ -1,6 +1,7 @@
 package vn.cns.covid19.orders.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,17 @@ import vn.cns.covid19.databinding.ListViewOrdersItemBinding;
 import vn.cns.covid19.model.orders.OrderData;
 
 public class RecyclerViewOrdersAdapter extends RecyclerView.Adapter<RecyclerViewOrdersAdapter.MyViewHolder> {
+
+    public interface ClickListener {
+        void onClick (OrderData orderData);
+    }
+
     private List<OrderData> orderDataList = new ArrayList<>();
+    private ClickListener listener;
+
+    public void setListener (ClickListener listener) {
+        this.listener = listener;
+    }
 
     public void setOrderDataList(List<OrderData> orderDataList) {
         this.orderDataList = orderDataList;
@@ -47,6 +58,7 @@ public class RecyclerViewOrdersAdapter extends RecyclerView.Adapter<RecyclerView
         public MyViewHolder(@NonNull ListViewOrdersItemBinding listViewOrdersItemBinding) {
             super(listViewOrdersItemBinding.getRoot());
             this.listViewOrdersItemBinding = listViewOrdersItemBinding;
+            listViewOrdersItemBinding.getRoot().setOnClickListener(view -> listener.onClick(orderDataList.get(getAdapterPosition())));
         }
     }
 }

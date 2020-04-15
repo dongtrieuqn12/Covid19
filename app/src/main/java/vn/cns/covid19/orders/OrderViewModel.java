@@ -1,12 +1,15 @@
 package vn.cns.covid19.orders;
 
-import androidx.lifecycle.LiveData;
+import android.util.Log;
 
-import java.util.List;
+import com.google.gson.Gson;
 
+import java.util.Objects;
+
+import vn.cns.covid19.Utils.Const;
 import vn.cns.covid19.base.Lifecycle;
 import vn.cns.covid19.base.NetworkViewModel;
-import vn.cns.covid19.model.orders.OrderData;
+import vn.cns.covid19.model.orders.OrdersResponse;
 
 public class OrderViewModel extends NetworkViewModel implements OrderContract.ViewModel {
 
@@ -39,11 +42,28 @@ public class OrderViewModel extends NetworkViewModel implements OrderContract.Vi
 
     @Override
     public void getOrders(String customerCode) {
-        orderRepository.getOrders(customerCode);
+        orderRepository.getOrders(customerCode).subscribe(new OrderSubscriber());
     }
 
-    @Override
-    public LiveData<List<OrderData>> getOrdersData() {
-        return orderRepository.getListMutableLiveData();
+    private class OrderSubscriber extends MaybeNetworkObserver<OrdersResponse> {
+        @Override
+        public void onSuccess(OrdersResponse ordersResponse) {
+            super.onSuccess(ordersResponse);
+            Log.d(Const.TAG,"response: " + new Gson().toJson(ordersResponse));
+            viewCallback.updateOrders(ordersResponse);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            super.onError(e);
+            Log.d(Const.TAG, Objects.requireNonNull(e.getMessage()));
+            viewCallback.onFailed();
+//            viewCallback.showFailedDialog(e.getMessage());
+        }
+
+        @Override
+        public void onComplete() {
+            super.onComplete();
+        }
     }
 }

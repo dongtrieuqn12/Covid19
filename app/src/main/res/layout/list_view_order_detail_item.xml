@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view_invoices="http://schemas.android.com/apk/res-auto"
+    xmlns:linealayout_item_store="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="vn.cns.covid19.model.orders.OrderDetail" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_delivery"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_90"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/list_view_orders_spacing"
+        card_view_invoices:cardCornerRadius="@dimen/card_radius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_width="@dimen/height_80"
+                android:layout_height="@dimen/height_80"
+                android:layout_marginStart="@dimen/list_view_orders_spacing"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/orderDetail_image"
+                    android:layout_width="@dimen/height_80"
+                    android:layout_height="@dimen/height_80"
+                    />
+                <TextView
+                    android:id="@+id/product_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_size_20sp"
+                    bind:setCode="@{item.productCode}"
+                    android:background="@android:color/holo_red_light"/>
+
+                <View
+                    android:id="@+id/view_background_delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#33000000">
+                </View>
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/list_view_orders_spacing"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/orderDetail_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/order_name_text_size"
+                        android:layout_marginTop="@dimen/padding_8dp"
+                        android:text="@{item.productName}"
+                        android:textColor="@android:color/black"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="@dimen/padding_8dp"
+                        >
+                        <TextView
+                            android:id="@+id/orderDetail_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:textSize="@dimen/text_size_20sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            bind:setPrice="@{item.price}"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:textSize="@dimen/text_size_20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:text=" x "
+                            linealayout_item_store:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/orderDetail_quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:textSize="@dimen/text_size_24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:text="@{String.valueOf(item.quantity)}"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/action_delivery_button"
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/order_cell_height"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/list_view_orders_spacing"
+                    android:layout_marginStart="@dimen/list_view_orders_spacing"
+                    android:text="@string/delivery"
+                    android:textSize="@dimen/order_name_text_size"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/button_green"
+                    bind:setButton="@{item.note}"
+                    linealayout_item_store:ignore="HardcodedText" />
+
+                <LinearLayout
+                    android:id="@+id/delivered_show"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    bind:setLayout="@{item.note}"
+                    android:layout_marginEnd="@dimen/list_view_orders_spacing"
+                    android:layout_marginStart="@dimen/list_view_orders_spacing">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delivered"
+                        android:textSize="@dimen/order_number_text_size"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/deviceId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/order_number_text_size"
+                        android:textColor="@android:color/black"/>
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

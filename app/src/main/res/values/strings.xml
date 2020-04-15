@@ -25,5 +25,11 @@
 
     <string name="text_view_order_status_label_3">Đã giao</string>
 
+    <string name="text_view_order_title">Tổng hàng: </string>
+
+    <string name="delivery">giao</string>
+    <string name="delivered">Đã giao</string>
+    <string name="button_delivered">Đơn hàng đã giao</string>
+
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

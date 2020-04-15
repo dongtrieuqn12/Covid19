@@ -45,7 +45,7 @@ public class PreferencesUtils {
             return null;
         }
 
-        return new Gson().fromJson(jsonString,TokenResponse.class).getAccessToken();
+        return "Bearer " + new Gson().fromJson(jsonString,TokenResponse.class).getAccessToken();
     }
 
     public void saveConfigPOS (ConfigResponse configPOS) {

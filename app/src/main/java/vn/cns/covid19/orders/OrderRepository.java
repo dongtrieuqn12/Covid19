@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Maybe;
 import io.reactivex.MaybeSource;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -27,7 +28,6 @@ public class OrderRepository {
     private static OrderRepository instance;
     private OrdersAPIService ordersAPIService;
     private PreferencesUtils preferencesUtils;
-    private MutableLiveData<List<OrderData>> listMutableLiveData = new MutableLiveData<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private OrderRepository (Context context) {
@@ -46,12 +46,7 @@ public class OrderRepository {
         }
     }
 
-    public MutableLiveData<List<OrderData>> getListMutableLiveData () {
-        return listMutableLiveData;
-    }
-
-    public void getOrders (String customerCode) {
-        List<OrderData> orderDataList = new ArrayList<>();
+    public Maybe<OrdersResponse> getOrders (String customerCode) {
         Map<String,String> stringMap = new HashMap<>();
         stringMap.put("customerCode",customerCode);
         stringMap.put("branchIds",preferencesUtils.loadConfig().getKiotConfig().getBranchId());
@@ -59,29 +54,7 @@ public class OrderRepository {
         stringMap.put("pageSize","100");
         stringMap.put("orderBy","createdDate");
         stringMap.put("orderDirection","Desc");
-        compositeDisposable.add(ordersAPIService.getOrders(stringMap)
-                .flatMap((Function<OrdersResponse, Observable<OrderData>>) ordersResponse -> {
-                    if (ordersResponse.getTotal() == 0) {
-                        throw new Exception("No data");
-                    }
-                    return Observable.fromArray(ordersResponse.getData().toArray(new OrderData[0]));
-                })
-                .subscribeWith(new DisposableObserver<OrderData>() {
-                    @Override
-                    public void onNext(OrderData orderData) {
-                        orderDataList.add(orderData);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        listMutableLiveData.postValue(null);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        listMutableLiveData.postValue(orderDataList);
-                    }
-                }));
+        return ordersAPIService.getOrders(stringMap);
     }
 
     public void clear () {

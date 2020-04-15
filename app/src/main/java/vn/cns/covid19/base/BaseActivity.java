@@ -74,6 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NfcAdapt
         for(String tech : tag.getTechList()) {
             if(tech.equals(IsoDep.class.getName())){
                 customerCode = Objects.requireNonNull(ByteUtils.byteArray2HexString(tag.getId())).toUpperCase();
+                Log.d(Const.TAG, "customerCode: " + customerCode);
                 functionProcess(tag);
                 break;
             }

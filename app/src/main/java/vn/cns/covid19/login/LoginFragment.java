@@ -106,7 +106,11 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             if (configResponse != null) {
-                loginViewModel.getToken(configResponse);
+                if (!samId.equals(configResponse.getSamId())) {
+                    loginViewModel.login(samId);
+                } else {
+                    loginViewModel.getToken(configResponse);
+                }
             } else {
                 loginViewModel.login(samId);
             }
