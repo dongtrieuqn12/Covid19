@@ -31,5 +31,11 @@
     <string name="delivered">Đã giao</string>
     <string name="button_delivered">Đơn hàng đã giao</string>
 
+    <string name="customerCode">MÃ SỐ HỘ</string>
+
+    <string name="title_order">Nội dung hỗ trợ</string>
+
+    <string name="space">,</string>
+
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

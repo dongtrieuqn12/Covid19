@@ -21,6 +21,7 @@ import vn.cns.covid19.Utils.Const;
 import vn.cns.covid19.base.Lifecycle;
 import vn.cns.covid19.databinding.FragmentOrdersBinding;
 import vn.cns.covid19.fragment.BaseFragment;
+import vn.cns.covid19.model.customer.CustomerResponse;
 import vn.cns.covid19.model.orders.OrderData;
 import vn.cns.covid19.model.orders.OrdersResponse;
 import vn.cns.covid19.orders.adapter.RecyclerViewOrdersAdapter;
@@ -69,6 +70,7 @@ public class OrderFragment extends BaseFragment implements OrderContract.View, R
 
         showLoadingDialog();
         orderViewModel.getOrders(activity.customerCode);
+//        orderViewModel.getOrders("040D475A4D4D80");
         return fragmentOrdersBinding.getRoot();
     }
 
@@ -92,6 +94,12 @@ public class OrderFragment extends BaseFragment implements OrderContract.View, R
         } else {
             mRecyclerViewOrdersAdapter.setOrderDataList(ordersResponse.getData());
         }
+    }
+
+    @Override
+    public void updateCustomer(CustomerResponse customerResponse) {
+        customerResponse.getData().get(0).setOrganization(activity.customerId.replace("null",""));
+        fragmentOrdersBinding.setCustomer(customerResponse.getData().get(0));
     }
 
     @Override

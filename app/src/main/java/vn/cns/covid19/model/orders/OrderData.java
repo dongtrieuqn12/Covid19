@@ -208,12 +208,14 @@ public class OrderData extends BaseObservable {
         this.usingCod = usingCod;
     }
 
+    @Bindable
     public String getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+        notifyPropertyChanged(vn.cns.covid19.BR.createdDate);
     }
 
     public List<OrderDetail> getOrderDetails() {

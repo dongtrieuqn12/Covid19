@@ -6,6 +6,7 @@ public interface Const {
     String KIOT_HOST_ID = "https://id.kiotviet.vn/";
     String KIOT_HOST = "https://public.kiotapi.com/";
     String CMS_HOST = "https://uat-api.vinaid.vn/";
+    String AMS_HOST = "https://uat-api.vinaid.vn:1443/";
 
     String CMS_TKN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0cmlldTAxIiwidGVuYW50SWQiOiIzIiwiZXhwIjoxNjE4MzIwOTAxfQ.WhVTNWuy_ZwMZ11lB_L5jHMn-ADZcRBGM-8qokMFzj-Yr3HB6UjSmmVZMCAlY2dCq6DtZsejqV_brFthMAGztw";
 

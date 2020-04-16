@@ -127,7 +127,7 @@
                 <Button
                     android:id="@+id/action_delivery_button"
                     android:layout_gravity="center"
-                    android:layout_width="@dimen/order_cell_height"
+                    android:layout_width="@dimen/button_delivery_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/list_view_orders_spacing"
                     android:layout_marginStart="@dimen/list_view_orders_spacing"

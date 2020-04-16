@@ -19,6 +19,8 @@ import java.util.Objects;
 import vn.cns.covid19.R;
 import vn.cns.covid19.Utils.ByteUtils;
 import vn.cns.covid19.Utils.Const;
+import vn.cns.covid19.detail.DetailFragment;
+import vn.cns.covid19.orders.OrderFragment;
 
 public abstract class BaseActivity extends AppCompatActivity implements NfcAdapter.ReaderCallback {
 
@@ -158,6 +160,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NfcAdapt
 
     @Override
     public void onBackPressed() {
+        setTitle("Chương trình hỗ trợ TPHCM");
         fragmentManager.popBackStackImmediate();
 
         int backStackEntryCount = fragmentManager.getBackStackEntryCount();

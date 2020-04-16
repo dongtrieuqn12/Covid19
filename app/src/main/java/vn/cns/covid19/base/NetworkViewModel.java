@@ -27,7 +27,7 @@ public abstract class NetworkViewModel {
         return lastError;
     }
 
-    protected class MaybeNetworkObserver<T> extends DisposableMaybeObserver<T> {
+    public class MaybeNetworkObserver<T> extends DisposableMaybeObserver<T> {
 
         @Override
         @CallSuper

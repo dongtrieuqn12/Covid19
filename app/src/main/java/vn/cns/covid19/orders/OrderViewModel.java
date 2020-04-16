@@ -1,14 +1,18 @@
 package vn.cns.covid19.orders;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.util.Map;
 import java.util.Objects;
 
+import io.reactivex.functions.Consumer;
 import vn.cns.covid19.Utils.Const;
 import vn.cns.covid19.base.Lifecycle;
 import vn.cns.covid19.base.NetworkViewModel;
+import vn.cns.covid19.model.customer.CustomerResponse;
 import vn.cns.covid19.model.orders.OrdersResponse;
 
 public class OrderViewModel extends NetworkViewModel implements OrderContract.ViewModel {
@@ -40,30 +44,21 @@ public class OrderViewModel extends NetworkViewModel implements OrderContract.Vi
         return false;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void getOrders(String customerCode) {
-        orderRepository.getOrders(customerCode).subscribe(new OrderSubscriber());
+        orderRepository.getData(customerCode).subscribe(new Consumer<Map<String, Object>>() {
+            @Override
+            public void accept(Map<String, Object> stringObjectMap) throws Exception {
+                updateView(stringObjectMap);
+            }
+        });
     }
 
-    private class OrderSubscriber extends MaybeNetworkObserver<OrdersResponse> {
-        @Override
-        public void onSuccess(OrdersResponse ordersResponse) {
-            super.onSuccess(ordersResponse);
-            Log.d(Const.TAG,"response: " + new Gson().toJson(ordersResponse));
-            viewCallback.updateOrders(ordersResponse);
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            super.onError(e);
-            Log.d(Const.TAG, Objects.requireNonNull(e.getMessage()));
-            viewCallback.onFailed();
-//            viewCallback.showFailedDialog(e.getMessage());
-        }
-
-        @Override
-        public void onComplete() {
-            super.onComplete();
-        }
+    private void updateView(Map<String,Object> map) {
+        OrdersResponse ordersResponse = (OrdersResponse) map.get("orders");
+        CustomerResponse customerResponse = (CustomerResponse) map.get("customer");
+        viewCallback.updateOrders(ordersResponse);
+        viewCallback.updateCustomer(customerResponse);
     }
 }
