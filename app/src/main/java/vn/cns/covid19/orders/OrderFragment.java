@@ -1,5 +1,6 @@
 package vn.cns.covid19.orders;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.Objects;
 import vn.cns.covid19.MainActivity;
 import vn.cns.covid19.Utils.Const;
 import vn.cns.covid19.base.Lifecycle;
+import vn.cns.covid19.base.ShortenId;
 import vn.cns.covid19.databinding.FragmentOrdersBinding;
 import vn.cns.covid19.fragment.BaseFragment;
 import vn.cns.covid19.model.customer.CustomerResponse;
@@ -99,6 +101,9 @@ public class OrderFragment extends BaseFragment implements OrderContract.View, R
     @Override
     public void updateCustomer(CustomerResponse customerResponse) {
         customerResponse.getData().get(0).setOrganization(activity.customerId.replace("null",""));
+        String imageURL = Const.AMS_HOST + "public/photo/" + ShortenId.encode(Long.valueOf(activity.customerId.replace("null","")));
+        orderViewModel.downLoadImage(imageURL);
+        Log.d(Const.TAG,new Gson().toJson(customerResponse));
         fragmentOrdersBinding.setCustomer(customerResponse.getData().get(0));
     }
 
@@ -106,6 +111,13 @@ public class OrderFragment extends BaseFragment implements OrderContract.View, R
     public void onFailed() {
         dismissLoadingDialog();
         activity.onBackPressed();
+    }
+
+    @Override
+    public void updateImage(Bitmap image) {
+        if (image != null) {
+            fragmentOrdersBinding.imageCustomer.setImageBitmap(image);
+        }
     }
 
     @Override

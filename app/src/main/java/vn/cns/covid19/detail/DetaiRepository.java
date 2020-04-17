@@ -60,7 +60,11 @@ public class DetaiRepository {
         } else {
             int count = 0;
             for (OrderDetail object : orderData.getOrderDetails()) {
-                if (!object.getNote().equals("")) {
+                if (object.getNote() != null) {
+                    if (!object.getNote().equals("")) {
+                        count++;
+                    }
+                } else {
                     count++;
                 }
             }

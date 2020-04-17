@@ -25,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:text="@{customer.code}"
+            bind:homeNumber="@{customer.comments}"
+            bind:customerCode="@{customer.code}"
             android:textSize="@dimen/text_size_24sp"/>
 
         <ImageView
@@ -40,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_24sp"
+            android:gravity="center"
             android:text="@{customer.name}"
             android:textColor="@android:color/black"/>
 

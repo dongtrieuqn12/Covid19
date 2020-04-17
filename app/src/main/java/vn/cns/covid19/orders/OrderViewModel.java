@@ -1,15 +1,16 @@
 package vn.cns.covid19.orders;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
 import io.reactivex.functions.Consumer;
-import vn.cns.covid19.Utils.Const;
 import vn.cns.covid19.base.Lifecycle;
 import vn.cns.covid19.base.NetworkViewModel;
 import vn.cns.covid19.model.customer.CustomerResponse;
@@ -59,6 +60,34 @@ public class OrderViewModel extends NetworkViewModel implements OrderContract.Vi
         OrdersResponse ordersResponse = (OrdersResponse) map.get("orders");
         CustomerResponse customerResponse = (CustomerResponse) map.get("customer");
         viewCallback.updateOrders(ordersResponse);
-        viewCallback.updateCustomer(customerResponse);
+        if (customerResponse != null && customerResponse.getTotal() > 0) {
+            viewCallback.updateCustomer(customerResponse);
+        }
+    }
+
+    @Override
+    public void downLoadImage(String url) {
+        new DownloadImageTask().execute(url);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", Objects.requireNonNull(e.getMessage()));
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            viewCallback.updateImage(result);
+        }
     }
 }

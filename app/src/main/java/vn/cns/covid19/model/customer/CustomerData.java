@@ -60,6 +60,9 @@ public class CustomerData extends BaseObservable {
     @SerializedName("debt")
     @Expose
     private Integer debt;
+    @SerializedName("comments")
+    @Expose
+    private String comments;
 
     @SuppressLint("SetTextI18n")
     @BindingAdapter({"address","locationName"})
@@ -75,10 +78,31 @@ public class CustomerData extends BaseObservable {
         }
         Log.d(Const.TAG,"customerId: " + customerId);
         String imageURL = Const.AMS_HOST + "public/photo/" + ShortenId.encode(Long.valueOf(customerId));
+//        String imageURL = "https://api.vinaid.vn:1443/public/photo/5M8";
         Log.d(Const.TAG,imageURL);
         Glide.with(img.getContext())
                 .load(imageURL)
                 .into(img);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @BindingAdapter({"homeNumber","customerCode"})
+    public static void setHomeNumber (TextView textView, String homeNumber, String code) {
+        if (homeNumber == null) {
+            textView.setText(code);
+        } else {
+            textView.setText(homeNumber);
+        }
+    }
+
+    @Bindable
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+        notifyPropertyChanged(vn.cns.covid19.BR.comments);
     }
 
     public Integer getId() {

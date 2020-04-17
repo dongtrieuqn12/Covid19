@@ -2,9 +2,14 @@ package vn.cns.covid19.orders;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +71,8 @@ public class OrderRepository {
 
     private Maybe<CustomerResponse> getCustomer (String customerCode) {
         Map<String,String> stringMap = new HashMap<>();
-        stringMap.put("customerCode",customerCode);
+        stringMap.put("code",customerCode);
+        Log.d(Const.TAG,"code: " + customerCode);
         return customerAPIService.getCustomers(stringMap);
     }
 
